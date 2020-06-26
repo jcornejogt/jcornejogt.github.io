@@ -26,14 +26,9 @@ export class FeedPage implements OnInit {
     console.log("La busqueda es:" + value);
   }
 
-  async editService(item) {
+  async editService() {
    const modal = await this.modalController.create({
       component: ModalEditServiceComponent,
-      componentProps: {
-        'firstName': 'Douglas',
-        'lastName': 'Adams',
-        'middleInitial': 'N'
-      }
     });
 
     await modal.present();

@@ -18,3 +18,4 @@ export class ModalEditServiceComponent {
     this.ModalController.dismiss();
   }
 }
+

@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-modal-edit-service',
   templateUrl: './modal-edit-service.component.html',
   styleUrls: ['./modal-edit-service.component.scss'],
 })
-export class ModalEditServiceComponent implements OnInit {
+export class ModalEditServiceComponent {
 
-  constructor() { }
+  constructor(private ModalController: ModalController) { }
 
-  ngOnInit() {}
+  updateService() {
+    this.ModalController.dismiss();
+  }
 
+  dismissModal() {
+    this.ModalController.dismiss();
+  }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "ServiciosApps",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

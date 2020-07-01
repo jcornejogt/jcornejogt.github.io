@@ -1,7 +1,8 @@
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { FirebaseServiceService } from '../../services/firebase-service.service';
 
 
 @Component({
@@ -11,24 +12,40 @@ import { ModalController } from '@ionic/angular';
 })
 export class FeedPage implements OnInit {
   
-  nicaService: any = [{ titulo: 'Titulo del Servicio' , descripcion: 'Descripcion del servicio', NombreProfesional : 'Nombre del Profesional'}];
-  
+  public services = [];
+
   constructor(
     private router: Router,
+    private firebaseServiceService: FirebaseServiceService,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
+
+    this.firebaseServiceService.getServices().subscribe((service) => {
+      this.services = [];
+      service.forEach((service: any) => {
+        this.services.push({
+          id: service.payload.doc.id,
+          data: service.payload.doc.data()
+        });
+        console.log("info de coleccion: "+ this.services.toString());
+      })
+    });
+
   }
 
-  getServices($event) {
+  searchServices($event) {
     const value = $event.target.value;
     console.log("La busqueda es:" + value);
   }
 
-  async editService() {
-   const modal = await this.modalController.create({
+  async editService(docId: any) {
+    const modal = await this.modalController.create({
       component: ModalEditServiceComponent,
+      componentProps: {
+        documentid: docId
+      }
     });
 
     await modal.present();
@@ -37,6 +54,5 @@ export class FeedPage implements OnInit {
   addService() {
     this.router.navigate(['add-service']);
   }
-
 
 }

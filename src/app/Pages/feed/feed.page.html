@@ -5,27 +5,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="getServices($event)"></ion-searchbar>
- 
+  <ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let item of nicaService">
+    <ion-item *ngFor="let item of services">
       <ion-thumbnail slot="start">
         <img src="../../../assets/images/nicaBandera.png">
       </ion-thumbnail>
       <ion-label class="ion-text-wrap">
-        <h2>{{item.titulo}}</h2>
-        <p>{{item.descripcion}}</p>
-        <p>{{item.NombreProfesional}}</p>
+        <h2>{{item.data.nombreServicio}}</h2>
+        <p>{{item.data.idProfesional}}</p>
+        <p>{{item.data.descripcionServicio}}</p>
       </ion-label>
-      <ion-button fill="outline" slot="end" (click)="editService()">Ver</ion-button>
+      <button class="btn--green btn--s btn1" (click)="editService(item.id)">Editar</button>
     </ion-item>
   </ion-list>
-  
-    <!-- fab placed to the bottom end -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addService()">
-        <ion-icon name="add-circle"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addService()">
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

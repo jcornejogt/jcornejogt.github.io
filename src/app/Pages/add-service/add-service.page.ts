@@ -30,6 +30,7 @@ export class AddServicePage implements OnInit {
 
 
   public addService(form, documentId = this.documentId) {
+    debugger;
     console.log(`Status: ${this.currentStatus}`);
     if (this.currentStatus == 1) {
       let data = {
@@ -48,22 +49,7 @@ export class AddServicePage implements OnInit {
         console.error(error);
       });
     } else {
-      let data = {
-        nombreServicio: form.nombreServicio,
-        idProfesional: form.idProfesional,
-        descripcionServicio: form.descripcionServicio
-      }
-      this.firebaseServiceService.updateService(documentId, data).then(() => {
-        this.currentStatus = 1;
-        this.serviceForm.setValue({
-          nombreServicio: '',
-          uridProfesionall: '',
-          descripcionServicio: ''
-        });
-        console.log('Documento editado exitósamente');
-      }, (error) => {
-        console.log(error);
-      });
+
     }
   }
 

@@ -25,7 +25,7 @@
         </ion-card>
       </ion-row>
 
-      <ion-row>
+      <form>
         <ion-col size-lg="6" size-md="6" size-sm="6" size="12">
           <ion-item>
             <ion-label position="floating">Nombre</ion-label>
@@ -41,7 +41,7 @@
         <ion-col size-lg="6" size-md="6" size-sm="6" size="12">
           <ion-item>
             <ion-label position="floating">Correo Electronico</ion-label>
-            <ion-input type="email"></ion-input>
+            <ion-input type="email" [(ngModel)]='user.email'></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size-lg="6" size-md="6" size-sm="6" size="12">
@@ -90,16 +90,16 @@
 
         <ion-col size-lg="4" size-md="4" size-sm="4" size="12">
           <ion-item>
-            <ion-label position="floating">Edad</ion-label>
-            <ion-input type="number"></ion-input>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="text" [(ngModel)]='user.password'></ion-input>
           </ion-item>
         </ion-col>
 
-      </ion-row>
+      </form>
 
       <ion-row>
         <ion-col size-lg="4" size-md="4" size-sm="4" size="12">
-          <ion-button class="btncenter" ion-button type="submit" (click)='registrate()' shape='round' color="success">
+          <ion-button class="btncenter" ion-button type="submit" (click)='signup()' shape='round' color="success">
             Registrarse
           </ion-button>
         </ion-col>

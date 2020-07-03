@@ -46,7 +46,6 @@ export class ModalEditServiceComponent {
    }
 
   public editService(form, documentId = this.documentid) {
-    debugger;
     let data = {
       nombreServicio: form.nombreServicio,
       idProfesional: form.idProfesional,

@@ -1,9 +1,7 @@
-import { User } from './../../shared/user.class';
-import { AuthConstants } from './../../config/auth-constants';
-import { StorageService } from './../../services/storage.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,21 +10,33 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  public User = {
-    email: '',
-    password: ''
+  public LoginForm: FormGroup;
 
-  };
-   
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private StorageService: StorageService
-  ) { }
+  constructor(private authSvc: AuthService, private router: Router,
+    public formBuilder: FormBuilder) {
+    this.LoginForm = formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit() { }
 
-  validateInputs() {
+  async login(form) {
+    let data = {
+      email: form.email,
+      password: form.password
+    }
+    const user = await this.authSvc.login(data);
+    if (user) {
+      console.log('Logueado exitosamente!');
+      this.router.navigate(['/login'])
+    } else {
+      console.log('Error de autenticacion');
+    }
+  }
+
+  /*validateInputs() {
     let email = this.User.email.trim();
     let password = this.User.password.trim();
 
@@ -35,28 +45,6 @@ export class LoginPage implements OnInit {
       email.length > 0 &&
       password.length > 0
     );
-  }
+  }*/
 
-  loginAction() {
-   
-    if (this.validateInputs()) {
-      this.router.navigate(['home']);
-    /*   this.authService.login(this.User).subscribe((res: any) => {
-        if (res.userData) {
-          this.StorageService.store(AuthConstants.AUTH, res.userData);
-          this.router.navigate(['home']);
-        } else {
-          console.log('Incorrect username or Password');
-        }
-      }, */
-        /*(error: any) => {
-          console.log('Network connection error');
-        }*/
-      /* ); */
-    } else {
-      console.log('Please give some information');
-    } 
-  }
 }
-
-

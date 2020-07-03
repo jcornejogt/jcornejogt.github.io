@@ -1,8 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../shared/user.class';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-singup',
@@ -11,28 +10,32 @@ import { User } from '../../shared/user.class';
 })
 
 export class SingupPage implements OnInit {
-user: User = new User();
-constructor(private authSvc: AuthService, private router: Router) { }
+  public SignupForm: FormGroup;
 
-  ngOnInit() {
+  constructor(private authSvc: AuthService, private router: Router,
+    public formBuilder: FormBuilder) {
+    this.SignupForm = formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-   async signup(){
-    
-    debugger;
-   
-     const user = await this.authSvc.signup(this.user);
-     if (user){
-       console.log('Successfully created user!');
-       this.router.navigate(['/login'])
-     }else{
-       console.log('no funciona el registro');
-     }
-   }
+  ngOnInit() { }
 
-  /*registrate(){
-    this.router.navigate(['/login'])
-  }*/
+  async signup(form) {
+    let data = {
+      email: form.email,
+      password: form.password
+    }
+    const user = await this.authSvc.signup(data);
+    if (user) {
+      console.log('Creado exitosamente!');
+      this.router.navigate(['/login'])
+    } else {
+      console.log('Error de registro');
+    }
+  }
+
   navigateToTypeOfLogin() {
     this.router.navigate(['type-of-login']);
   }

@@ -8,15 +8,14 @@ import { HttpService } from './http.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from './../shared/user.class';
-
+import { User } from '../shared/user.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public isLogged: any = false;
-  
+
   constructor(
     private httpService: HttpService,
     private storageServices: StorageService,
@@ -26,25 +25,21 @@ export class AuthService {
     afAuth.authState.subscribe(user => (this.isLogged = user));
   }
 
-  async login(user: User) {
+  async login(data: { email: string, password: string }) {
     try {
       return await this.afAuth.signInWithEmailAndPassword(
-        user.email,
-        user.password);
+        data.email,
+        data.password);
     } catch (error) {
       console.log('Error on login', error);
     }
   }
 
-  async signup(user: User) {
-    debugger;
+  async signup(data: { email: string, password: string }) {
     try {
-      return await this.afAuth.createUserWithEmailAndPassword(
-        user.email,
-        user.password
-      );
-     } catch (error) {
-
+      return await this.afAuth.createUserWithEmailAndPassword(data.email, data.password);
+    }
+    catch (error) {
     }
   }
 

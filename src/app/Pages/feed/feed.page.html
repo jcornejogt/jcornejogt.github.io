@@ -1,6 +1,17 @@
 <ion-header>
   <ion-toolbar color="primary" class="center">
+
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="secondary">
+      <ion-button (click)="logOut()">
+        <ion-icon name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Servicios</ion-title>
+
   </ion-toolbar>
 </ion-header>
 

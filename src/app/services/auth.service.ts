@@ -43,15 +43,6 @@ export class AuthService {
     }
   }
 
-  /*login(postData: any): Observable<any> {
-
-    return this.httpService.post('login', postData);
-  }
-
-  signup(postData: any): Observable<any>{
-    return this.httpService.post('signup',postData);
-  }*/
-
   logout() {
     this.storageServices.removeItem(AuthConstants.AUTH).then(res => {
       this.router.navigate(['']);

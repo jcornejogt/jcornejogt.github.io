@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
     const user = await this.authSvc.login(data);
     if (user) {
       console.log('Logueado exitosamente!');
-      this.router.navigate(['/login'])
+      this.router.navigateByUrl('/home')
     } else {
       console.log('Error de autenticacion');
     }

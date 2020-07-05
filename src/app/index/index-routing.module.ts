@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'signuppro',
         loadChildren: () => import('../Pages/signup-professional/signup-professional.module').then(m => m.SignupProfessionalPageModule)
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       }
     ]
   },

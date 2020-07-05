@@ -1,9 +1,10 @@
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from './../../services/auth.service';
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FirebaseServiceService } from '../../services/firebase-service.service';
-
 
 @Component({
   selector: 'app-feed',
@@ -17,7 +18,9 @@ export class FeedPage implements OnInit {
   constructor(
     private router: Router,
     private firebaseServiceService: FirebaseServiceService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private authSvc: AuthService,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -52,7 +55,13 @@ export class FeedPage implements OnInit {
   }
 
   addService() {
-    this.router.navigate(['add-service']);
+    this.router.navigateByUrl('/home/add-service');
+  }
+
+  logOut(){
+console.log('Hasta pronto!');
+this.afAuth.signOut();
+this.router.navigateByUrl('/login')
   }
 
 }

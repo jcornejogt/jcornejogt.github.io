@@ -4,12 +4,13 @@ import { SlidesComponent } from './slides/slides.component';
 import { StartComponent } from './start/start.component';
 import { LogoComponent } from './logo/logo.component';
 import { IonicModule } from '@ionic/angular';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 
 
 @NgModule({
-  declarations: [SlidesComponent, StartComponent,LogoComponent],
-  exports: [SlidesComponent, StartComponent,LogoComponent],
+  declarations: [SideMenuComponent, SlidesComponent, StartComponent,LogoComponent],
+  exports: [SideMenuComponent, SlidesComponent, StartComponent,LogoComponent],
   imports: [
     CommonModule,IonicModule.forRoot()
   ]

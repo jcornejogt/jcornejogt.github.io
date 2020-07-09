@@ -1,5 +1,3 @@
-
-/*import { AuthService } from './auth.service';*/
 import { environment } from './../../environments/environment.prod';
 import { AuthConstants } from './../config/auth-constants';
 import { StorageService } from './storage.service';
@@ -14,16 +12,13 @@ import { User } from '../shared/user.class';
   providedIn: 'root'
 })
 export class AuthService {
-  public isLogged: any = false;
 
   constructor(
     private httpService: HttpService,
     private storageServices: StorageService,
     private router: Router,
     public afAuth: AngularFireAuth,
-  ) {
-    afAuth.authState.subscribe(user => (this.isLogged = user));
-  }
+  ) {}
 
   async login(data: { email: string, password: string }) {
     try {

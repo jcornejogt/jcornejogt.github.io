@@ -35,16 +35,4 @@ export class LoginPage implements OnInit {
       console.log('Error de autenticacion');
     }
   }
-
-  /*validateInputs() {
-    let email = this.User.email.trim();
-    let password = this.User.password.trim();
-
-    return (this.User.email &&
-      this.User.password &&
-      email.length > 0 &&
-      password.length > 0
-    );
-  }*/
-
 }

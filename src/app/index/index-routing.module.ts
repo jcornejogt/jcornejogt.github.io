@@ -1,3 +1,5 @@
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { NologinGuard } from 'src/app/guards/nologin.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexPage } from './index.page';
@@ -9,11 +11,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('../Pages/welcome/welcome.module').then(m => m.WelcomePageModule)
+        loadChildren: () => import('../Pages/welcome/welcome.module').then(m => m.WelcomePageModule),
+        canActivate: [NologinGuard]
       },
       {
         path: 'login',
-        loadChildren: () => import('../Pages/login/login.module').then(m => m.LoginPageModule)
+        loadChildren: () => import('../Pages/login/login.module').then(m => m.LoginPageModule),
+        canActivate: [NologinGuard]
       },
       {
         path: 'signup',
@@ -22,7 +26,8 @@ const routes: Routes = [
       ,
       {
         path: 'typeoflogin',
-        loadChildren: () => import('../Pages/typeoflogin/type-of-login.module').then(m => m.TypeOfLoginPageModule)
+        loadChildren: () => import('../Pages/typeoflogin/type-of-login.module').then(m => m.TypeOfLoginPageModule),
+        canActivate: [NologinGuard]
       } ,
       {
         path: 'signuppro',
@@ -30,7 +35,8 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule),
+        canActivate: [AuthGuard]
       }
     ]
   },

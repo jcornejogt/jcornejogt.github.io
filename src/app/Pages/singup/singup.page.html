@@ -24,9 +24,6 @@
 
 
   <form (ngSubmit)="signup(SignupForm.value)" [formGroup]="SignupForm">
-
-    <ion-list>
-
       <ion-item>
         <ion-label color="primary" position="stacked">email</ion-label>
         <ion-input type="text" formControlName="email"></ion-input>
@@ -36,7 +33,12 @@
         <ion-label color="primary" position="stacked">Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
-    </ion-list>
+
+      <ion-item>
+        Ya tienes una cuenta?&nbsp;&nbsp;
+        <a href='/login'>Inicia sesion</a>
+      </ion-item>
+
     <ion-button type="submit" expand="block" shape='round' color="success" [disabled]="!SignupForm.valid">Registrarse</ion-button>
   </form>
 

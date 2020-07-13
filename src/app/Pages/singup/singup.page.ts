@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-singup',
@@ -13,7 +14,7 @@ export class SingupPage implements OnInit {
   public SignupForm: FormGroup;
 
   constructor(private authSvc: AuthService, private router: Router,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder, public toastController: ToastController) {
     this.SignupForm = formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -33,7 +34,17 @@ export class SingupPage implements OnInit {
       this.router.navigate(['/login'])
     } else {
       console.log('Error de registro');
+      this.openToast();
     }
+  }
+
+  async openToast(){
+    const toast = await this.toastController.create({
+      message: 'Usuario o contraseña incorrecta',
+      duration: 2000,
+      animated: true,
+    });
+    await( toast.present());
   }
 
   navigateToTypeOfLogin() {

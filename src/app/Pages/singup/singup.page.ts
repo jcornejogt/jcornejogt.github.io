@@ -25,19 +25,21 @@ export class SingupPage implements OnInit {
   async signup(form) {
     let data = {
       email: form.email,
-      password: form.password
+      password: form.password,
+      roles: {
+        professional: true
+      }
     }
-    const user = await this.authSvc.signup(data);
-    if (user) {
+    try{
+      const user = await this.authSvc.signup(data);
       console.log('Creado exitosamente!');
-      this.router.navigate(['/login'])
-    } else {
-      console.log('Error de registro');
+      this.router.navigate(['/login']);
+    }catch (error){
+      console.log('Error de registro'+error);
     }
   }
 
   navigateToTypeOfLogin() {
     this.router.navigate(['type-of-login']);
   }
-
 }

@@ -12,6 +12,11 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
+        path: '',
+        loadChildren: () => import('../Pages/feed/feed.module').then(m => m.FeedPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'feed',
         loadChildren: () => import('../Pages/feed/feed.module').then(m => m.FeedPageModule),
         canActivate: [AuthGuard]

@@ -34,5 +34,5 @@ export class LoginPage implements OnInit {
     } else {
       console.log('Error de autenticacion');
     }
-  }
+  } 
 }

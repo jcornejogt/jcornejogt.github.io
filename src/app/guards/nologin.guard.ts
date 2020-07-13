@@ -22,8 +22,8 @@ export class NologinGuard implements CanActivate {
       if (isNullOrUndefined(auth)) {
         return true;
       } else {
-        console.log('Usted ya esta loguiado!');
-        this.router.navigateByUrl('/home')
+        console.log('Usted ya esta logueado!');
+        this.router.navigateByUrl('/home');
         return false;
       }
     }))

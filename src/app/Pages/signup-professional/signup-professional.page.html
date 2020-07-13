@@ -1,4 +1,51 @@
 <ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/type-of-login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrarse como profesional</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Registrate como cliente para encontrar profesionales NICARAGUENSES dispuestos a ofrecerte un
+          amplio ramo de servicios multiple!
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ion-row>
+
+  <form (ngSubmit)="signup(SignupProForm.value)" [formGroup]="SignupProForm">
+    <ion-item>
+      <ion-label color="primary" position="stacked">email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      Ya tienes una cuenta?&nbsp;&nbsp;
+      <a href='/login'>Inicia sesion</a>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" shape='round' color="success" [disabled]="!SignupProForm.valid">Registrarse
+    </ion-button>
+  </form>
+
+</ion-content>
+
+
+
+
+
+
+<!-- <ion-header>
   <ion-row>
       <ion-toolbar color="secondary">
         <ion-buttons slot="start">
@@ -11,8 +58,11 @@
           </ion-col>
       </ion-toolbar>
   </ion-row>
-</ion-header>
+</ion-header> -->
 
+
+
+<!-- 
 <ion-content>
   <form slot="fixed">
     <ion-grid>
@@ -120,4 +170,4 @@
       </ion-row>
     </ion-grid>
   </form>
-</ion-content>
+</ion-content> -->

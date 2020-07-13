@@ -12,8 +12,10 @@ import { FirebaseServiceService } from '../../services/firebase-service.service'
   styleUrls: ['./feed.page.scss'],
 })
 export class FeedPage implements OnInit {
-  
+
   public services = [];
+  public isAdmin: any = null;
+  public userUid: string = null;
 
   constructor(
     private router: Router,
@@ -23,19 +25,30 @@ export class FeedPage implements OnInit {
     private afAuth: AngularFireAuth
   ) { }
 
-  ngOnInit() {
 
+
+  ngOnInit() {
     this.firebaseServiceService.getServices().subscribe((service) => {
-      this.services = [];
       service.forEach((service: any) => {
         this.services.push({
           id: service.payload.doc.id,
           data: service.payload.doc.data()
         });
-        console.log("info de coleccion: "+ this.services.toString());
       })
     });
+  }
 
+  getCurrentUser() {
+    this.authSvc.isAuth().subscribe(auth => {
+      if (auth) {
+        this.userUid = auth.uid;
+        this.authSvc.isUserAdmin(this.userUid).subscribe(userRole => {
+          this.isAdmin = Object.assign({}, userRole.roles);
+          this.isAdmin = this.isAdmin.hasOwnProperty('admin');
+        }
+        )
+      }
+    })
   }
 
   searchServices($event) {
@@ -50,7 +63,6 @@ export class FeedPage implements OnInit {
         documentid: docId
       }
     });
-
     await modal.present();
   }
 
@@ -58,10 +70,9 @@ export class FeedPage implements OnInit {
     this.router.navigateByUrl('/home/add-service');
   }
 
-  logOut(){
-console.log('Hasta pronto!');
-this.afAuth.signOut();
-this.router.navigateByUrl('/login')
+  logOut() {
+    console.log('Hasta pronto!');
+    this.afAuth.signOut();
+    this.router.navigateByUrl('/login')
   }
-
 }

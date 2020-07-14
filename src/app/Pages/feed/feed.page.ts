@@ -5,6 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FirebaseServiceService } from '../../services/firebase-service.service';
+import { NgZone } from "@angular/core"; 
 
 @Component({
   selector: 'app-feed',
@@ -22,7 +23,8 @@ export class FeedPage implements OnInit {
     private firebaseServiceService: FirebaseServiceService,
     private modalController: ModalController,
     private authSvc: AuthService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private ngZone: NgZone
   ) { }
 
 
@@ -72,7 +74,6 @@ export class FeedPage implements OnInit {
 
   logOut() {
     console.log('Hasta pronto!');
-    this.afAuth.signOut();
-    this.router.navigateByUrl('/login')
+    this.authSvc.logout();
   }
 }

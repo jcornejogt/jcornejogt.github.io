@@ -38,9 +38,9 @@ export class SignupProfessionalPage implements OnInit {
       }
     }
     try {
-      await this.authSvc.signup(this.dataUser);
+      this.authSvc.signup(this.dataUser);
       console.log('Creado exitosamente!');
-      this.router.navigate(['/login'])
+      this.router.navigate(['/home']);
     } catch (error) {
       console.log('Error de registro');
     }

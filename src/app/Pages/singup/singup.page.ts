@@ -36,9 +36,8 @@ export class SingupPage implements OnInit {
     }
 
     try {
-      this.authSvc.signup(data);
+      await this.authSvc.signup(data);
       console.log('Creado exitosamente!');
-      this.router.navigateByUrl('/home');
       this.openToast("Bienvenido");
     }
     catch (error) {

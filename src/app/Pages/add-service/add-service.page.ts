@@ -30,7 +30,6 @@ export class AddServicePage implements OnInit {
 
 
   public addService(form, documentId = this.documentId) {
-    debugger;
     console.log(`Status: ${this.currentStatus}`);
     if (this.currentStatus == 1) {
       let data = {

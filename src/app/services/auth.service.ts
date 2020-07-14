@@ -1,5 +1,4 @@
-import { Roles } from './../models/user';
-import { auth } from 'firebase';
+
 import { AuthConstants } from './../config/auth-constants';
 import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
@@ -33,24 +32,19 @@ async login(UserInterface) {
   } 
 
   async signup(user) {
-    try {
-      debugger;
       return await this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password).then((credential) => {
-        this.updateUserData(credential, user.roles)
+        this.updateUserData(credential, user.roles);
+        this.router.navigateByUrl('/home')
       });
-    }
-    catch (error) {
-    }
   }
 
-  logout() {
-    this.storageServices.removeItem(AuthConstants.AUTH).then(res => {
-      this.router.navigate(['']);
-    })
+  async logout() {
+    await this.angularFireAuth.signOut();
+    await this.storageServices.removeItem(AuthConstants.AUTH);
+    this.router.navigate(['/']);
   }
 
   private updateUserData(user, roleData) {
-    debugger;
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.user.uid}`);
 
     this.dataUser = {

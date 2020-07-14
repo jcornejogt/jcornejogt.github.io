@@ -1,9 +1,8 @@
 import { ModalController } from '@ionic/angular';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 
 
 @Component({
@@ -18,6 +17,7 @@ export class ModalEditServiceComponent {
   public editServiceForm: FormGroup;
   public currentStatus = 1;
 
+  
   constructor(
     private ModalController: ModalController, 
     private firebaseServiceService: FirebaseServiceService,
@@ -47,6 +47,7 @@ export class ModalEditServiceComponent {
 
   public editService(form, documentId = this.documentid) {
     let data = {
+      id: form.id,
       nombreServicio: form.nombreServicio,
       idProfesional: form.idProfesional,
       descripcionServicio: form.descripcionServicio
@@ -54,11 +55,13 @@ export class ModalEditServiceComponent {
     this.firebaseServiceService.updateService(documentId, data).then(() => {
       this.currentStatus = 1;
       this.editServiceForm.setValue({
+        id: '',
         nombreServicio: '',
         idProfesional: '',
         descripcionServicio: ''
       });
       console.log('Documento editado exitósamente');
+      this.ModalController.dismiss();
     }, (error) => {
       console.log(error);
     });

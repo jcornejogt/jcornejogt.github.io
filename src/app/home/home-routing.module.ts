@@ -35,10 +35,6 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: () => import('../Pages/settings/settings.module').then(m => m.SettingsPageModule),
         canActivate: [AuthGuard]
-      },
-      {
-        path: 'add-service',
-        loadChildren: () => import('../Pages/add-service/add-service.module').then( m => m.AddServicePageModule)
       }
     ]
   },

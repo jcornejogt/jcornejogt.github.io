@@ -1,3 +1,4 @@
+import { ModalAddServiceComponent } from 'src/app/Components/modal-add-service/modal-add-service.component';
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,7 +19,7 @@ import { FeedPage } from './feed.page';
     FeedPageRoutingModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [FeedPage, ModalEditServiceComponent],
-  entryComponents: [ModalEditServiceComponent]
+  declarations: [FeedPage, ModalEditServiceComponent, ModalAddServiceComponent],
+  entryComponents: [ModalEditServiceComponent, ModalAddServiceComponent]
 })
 export class FeedPageModule {}

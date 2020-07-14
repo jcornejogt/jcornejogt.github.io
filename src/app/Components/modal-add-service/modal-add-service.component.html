@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary" class="center">
-    <ion-title>Editar servicio</ion-title>
+    <ion-title>Agregar servicio</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">
         <ion-icon name="close-circle-outline"></ion-icon>
@@ -11,31 +11,29 @@
 
 <ion-content>
 
-  <form (ngSubmit)="editService(editServiceForm.value)" [formGroup]="editServiceForm">
+  <form (ngSubmit)="addService(serviceForm.value)" [formGroup]="serviceForm">
 
     <ion-list>
 
       <ion-item>
-
-        <ion-input type="hidden" formControlName="id"></ion-input>
-
         <ion-label color="primary" position="stacked">Nombre del Servicio</ion-label>
         <ion-input type="text" placehorder="Ej: Jardineria" formControlName="nombreServicio"></ion-input>
-
-        <ion-label color="primary" position="stacked">Descripcion del servicio</ion-label>
-        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="descripcionServicio"></ion-input>
-
-        <ion-label color="primary" position="stacked">Profesional</ion-label>
-        <ion-input type="text" formControlName="idProfesional"></ion-input>
-
-        <ion-button type="submit" [disabled]="!editServiceForm.valid">
-          <ion-icon name="save-outline"></ion-icon>
-          &nbsp; Guardar
-        </ion-button>
       </ion-item>
 
+      <ion-item>
+        <ion-label color="primary" position="stacked">Descripcion del servicio</ion-label>
+        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="descripcionServicio"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label color="primary" position="stacked">Profesional</ion-label>
+        <ion-input type="text" formControlName="idProfesional"></ion-input>
+      </ion-item>
     </ion-list>
+    <ion-button type="submit" [disabled]="!serviceForm.valid">
+      <ion-icon name="save-outline"></ion-icon>
+      &nbsp; Crear nuevo servicio
+    </ion-button>
   </form>
 
 </ion-content>

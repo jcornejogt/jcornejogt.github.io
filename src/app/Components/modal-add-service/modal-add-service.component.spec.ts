@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddServicePage } from './add-service.page';
+import { ModalAddServiceComponent } from './modal-add-service.component';
 
-describe('AddServicePage', () => {
-  let component: AddServicePage;
-  let fixture: ComponentFixture<AddServicePage>;
+describe('ModalAddServiceComponent', () => {
+  let component: ModalAddServiceComponent;
+  let fixture: ComponentFixture<ModalAddServiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddServicePage ],
+      declarations: [ ModalAddServiceComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddServicePage);
+    fixture = TestBed.createComponent(ModalAddServiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

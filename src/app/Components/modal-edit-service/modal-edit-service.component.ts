@@ -13,18 +13,15 @@ import { Router } from '@angular/router';
 export class ModalEditServiceComponent {
 
   public documentid: any;
-
   public editServiceForm: FormGroup;
-  public currentStatus = 1;
 
-  
   constructor(
-    private ModalController: ModalController, 
+    private ModalController: ModalController,
     private firebaseServiceService: FirebaseServiceService,
-    public router: Router, 
+    public router: Router,
     public formBuilder: FormBuilder) {
 
-  this.editServiceForm = formBuilder.group({
+    this.editServiceForm = formBuilder.group({
       id: ['', Validators.required],
       nombreServicio: ['', Validators.required],
       descripcionServicio: ['', Validators.required],
@@ -32,9 +29,8 @@ export class ModalEditServiceComponent {
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     let editSubscribe = this.firebaseServiceService.getService(this.documentid).subscribe((service) => {
-      this.currentStatus = 2;
       this.editServiceForm.setValue({
         id: this.documentid,
         nombreServicio: service.payload.data()['nombreServicio'],
@@ -43,7 +39,7 @@ export class ModalEditServiceComponent {
       });
       editSubscribe.unsubscribe();
     });
-   }
+  }
 
   public editService(form, documentId = this.documentid) {
     let data = {
@@ -53,7 +49,6 @@ export class ModalEditServiceComponent {
       descripcionServicio: form.descripcionServicio
     }
     this.firebaseServiceService.updateService(documentId, data).then(() => {
-      this.currentStatus = 1;
       this.editServiceForm.setValue({
         id: '',
         nombreServicio: '',

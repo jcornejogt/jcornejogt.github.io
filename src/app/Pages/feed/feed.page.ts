@@ -5,7 +5,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FirebaseServiceService } from '../../services/firebase-service.service';
-import { NgZone } from "@angular/core"; 
+import { NgZone } from "@angular/core";
+import { ModalAddServiceComponent } from 'src/app/Components/modal-add-service/modal-add-service.component';
 
 @Component({
   selector: 'app-feed',
@@ -27,9 +28,12 @@ export class FeedPage implements OnInit {
     private ngZone: NgZone
   ) { }
 
-
-
   ngOnInit() {
+    this.getServices();
+  }
+
+  getServices() {
+    this.services = [];
     this.firebaseServiceService.getServices().subscribe((service) => {
       service.forEach((service: any) => {
         this.services.push({
@@ -56,6 +60,15 @@ export class FeedPage implements OnInit {
   searchServices($event) {
     const value = $event.target.value;
     console.log("La busqueda es:" + value);
+
+    this.services = [];
+    this.firebaseServiceService.getService(value).subscribe((service) => {
+        this.services.push({
+          id: service.payload.id,
+          data: service.payload.data()
+        });
+    });
+
   }
 
   async editService(docId: any) {
@@ -65,11 +78,20 @@ export class FeedPage implements OnInit {
         documentid: docId
       }
     });
-    await modal.present();
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getServices();
+    });
+    modal.present();
   }
 
-  addService() {
-    this.router.navigateByUrl('/home/add-service');
+  async addService() {
+    const modal = await this.modalController.create({
+      component: ModalAddServiceComponent
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+      this.getServices();
+    });
+    modal.present();
   }
 
   logOut() {

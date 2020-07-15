@@ -3,10 +3,12 @@ import { AuthService } from './../../services/auth.service';
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { FirebaseServiceService } from '../../services/firebase-service.service';
 import { NgZone } from "@angular/core";
 import { ModalAddServiceComponent } from 'src/app/Components/modal-add-service/modal-add-service.component';
+import { AlertsComponent } from './../../Components/alerts/alerts.component'
+
 
 @Component({
   selector: 'app-feed',
@@ -15,11 +17,8 @@ import { ModalAddServiceComponent } from 'src/app/Components/modal-add-service/m
 })
 export class FeedPage implements OnInit {
 
-  public services = [];
-  public isAdmin: any = null;
-  public userUid: string = null;
-
   constructor(
+    private alertCntrl: AlertController,
     private router: Router,
     private firebaseServiceService: FirebaseServiceService,
     private modalController: ModalController,
@@ -27,6 +26,12 @@ export class FeedPage implements OnInit {
     private afAuth: AngularFireAuth,
     private ngZone: NgZone
   ) { }
+
+  public services = [];
+  public isAdmin: any = null;
+  public userUid: string = null;
+  
+  public alrt = new AlertsComponent(this.alertCntrl);
 
   ngOnInit() {
     this.getServices();
@@ -60,13 +65,12 @@ export class FeedPage implements OnInit {
   searchServices($event) {
     const value = $event.target.value;
     console.log("La busqueda es:" + value);
-
     this.services = [];
     this.firebaseServiceService.getService(value).subscribe((service) => {
-        this.services.push({
-          id: service.payload.id,
-          data: service.payload.data()
-        });
+      this.services.push({
+        id: service.payload.id,
+        data: service.payload.data()
+      });
     });
 
   }
@@ -74,9 +78,7 @@ export class FeedPage implements OnInit {
   async editService(docId: any) {
     const modal = await this.modalController.create({
       component: ModalEditServiceComponent,
-      componentProps: {
-        documentid: docId
-      }
+      componentProps: { documentid: docId }
     });
     modal.onDidDismiss().then((dataReturned) => {
       this.getServices();
@@ -93,6 +95,26 @@ export class FeedPage implements OnInit {
     });
     modal.present();
   }
+
+
+  public async removeService(docId: any) {
+
+let header = 'Suave chatel!'
+let message = 'Estas seguro que deseas borrar este servicio prix?'
+
+    const confirm = await this.alrt.presentAlertConfirm(header, message);
+    if (confirm) {
+      await this.firebaseServiceService.deleteService(docId).then(() => {
+        this.getServices();
+        console.log('Deleted');
+      })
+    } else {
+      console.log('Canceled');
+    }
+  };
+
+
+
 
   logOut() {
     console.log('Hasta pronto!');

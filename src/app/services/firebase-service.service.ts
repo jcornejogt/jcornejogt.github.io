@@ -22,7 +22,12 @@ constructor
   }
 
   public getService(documentId: string) {
-    return this.firestore.collection('servicios').doc(documentId).snapshotChanges();
+    return this.
+    firestore.collection('servicios').doc(documentId).snapshotChanges();
+  }
+
+  public deleteService(documentId: string) {
+    return this.firestore.collection('servicios').doc(documentId).delete();
   }
 
   public updateService(documentId: string, data: any) {

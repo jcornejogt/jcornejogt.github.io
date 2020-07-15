@@ -36,8 +36,8 @@
         </ion-button>
 
         <ng-template #noProfessional>
-          <ion-button hidden="true" disabled="true">
-            <ion-icon name="create-outline"></ion-icon>
+          <ion-button (click)="getViewServices(item.id)">
+            <ion-icon name="eye-outline"></ion-icon>
           </ion-button>
         </ng-template>
 

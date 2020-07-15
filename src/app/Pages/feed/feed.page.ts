@@ -1,3 +1,4 @@
+import { ModalViewServiceComponent } from './../../Components/modal-view-service/modal-view-service.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from './../../services/auth.service';
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
@@ -84,6 +85,14 @@ export class FeedPage implements OnInit {
     modal.onDidDismiss().then((dataReturned) => {
       this.getServices();
     });
+    modal.present();
+  }
+
+  async getViewServices(docId: any) {
+    const modal = await this.modalController.create({
+      component: ModalViewServiceComponent,
+      componentProps: { documentid: docId }
+    });  
     modal.present();
   }
 

@@ -1,3 +1,4 @@
+import { ModalViewServiceComponent } from './../../Components/modal-view-service/modal-view-service.component';
 import { ComponentsModule } from './../../Components/components.module';
 import { AlertsComponent } from './../../Components/alerts/alerts.component';
 import { ModalAddServiceComponent } from 'src/app/Components/modal-add-service/modal-add-service.component';
@@ -22,7 +23,7 @@ import { FeedPage } from './feed.page';
     FeedPageRoutingModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  declarations: [FeedPage, ModalEditServiceComponent, ModalAddServiceComponent, AlertsComponent],
-  entryComponents: [ModalEditServiceComponent, ModalAddServiceComponent, AlertsComponent]
+  declarations: [FeedPage, ModalEditServiceComponent, ModalAddServiceComponent, AlertsComponent, ModalViewServiceComponent],
+  entryComponents: [ModalEditServiceComponent, ModalAddServiceComponent, AlertsComponent,ModalViewServiceComponent]
 })
 export class FeedPageModule {}

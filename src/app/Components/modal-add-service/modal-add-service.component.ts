@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,42 +15,48 @@ export class ModalAddServiceComponent {
   public serviceForm: FormGroup;
   public documentId = null;
 
+  @Input() userUid: string;
+
   constructor(
     private ModalController: ModalController,
     private firebaseServiceService: FirebaseServiceService,
     public router: Router,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder) { }
 
-    this.serviceForm = formBuilder.group({
+  
+
+  ngOnInit() { 
+
+    this.serviceForm = this.formBuilder.group({
+      userUid: [this.userUid, Validators.required],
       nombreServicio: ['', Validators.required],
       descripcionServicio: ['', Validators.required],
       idProfesional: ['', Validators.required]
-    });
-  }
-
-  ngOnInit() { }
-
+  });
+} 
 
   public addService(form, documentId = this.documentId) {
-      let data = {
+    let data = {
+      userUid: form.userUid,
       nombreServicio: form.nombreServicio,
       idProfesional: form.idProfesional,
       descripcionServicio: form.descripcionServicio
     }
 
     this.firebaseServiceService.createService(data).then(() => {
-      console.log('Documento creado exitósamente!');
       this.serviceForm.setValue({
+        userUid: '',
         nombreServicio: '',
         idProfesional: '',
         descripcionServicio: ''
       });
+      console.log('Documento creado exitósamente!');
     });
 
     this.dismissModal();
   }
 
-  
+
   dismissModal() {
     this.ModalController.dismiss();
   }

@@ -20,19 +20,23 @@ export class ModalEditServiceComponent {
     private firebaseServiceService: FirebaseServiceService,
     public router: Router,
     public formBuilder: FormBuilder) {
+  }
 
-    this.editServiceForm = formBuilder.group({
+  ngOnInit() {
+
+    this.editServiceForm = this.formBuilder.group({
+      userUid: ['', Validators.required],
       id: ['', Validators.required],
       nombreServicio: ['', Validators.required],
       descripcionServicio: ['', Validators.required],
       idProfesional: ['', Validators.required]
     });
-  }
 
-  ngOnInit() {
+
     let editSubscribe = this.firebaseServiceService.getService(this.documentid).subscribe((service) => {
       this.editServiceForm.setValue({
         id: this.documentid,
+        userUid: service.payload.data()['userUid'],
         nombreServicio: service.payload.data()['nombreServicio'],
         idProfesional: service.payload.data()['idProfesional'],
         descripcionServicio: service.payload.data()['descripcionServicio']
@@ -44,6 +48,7 @@ export class ModalEditServiceComponent {
   public editService(form, documentId = this.documentid) {
     let data = {
       id: form.id,
+      userUid: form.userUid,
       nombreServicio: form.nombreServicio,
       idProfesional: form.idProfesional,
       descripcionServicio: form.descripcionServicio
@@ -51,12 +56,16 @@ export class ModalEditServiceComponent {
     this.firebaseServiceService.updateService(documentId, data).then(() => {
       this.editServiceForm.setValue({
         id: '',
+        userUid: '',
         nombreServicio: '',
         idProfesional: '',
         descripcionServicio: ''
       });
+
       console.log('Documento editado exitósamente');
-      this.ModalController.dismiss();
+
+      this.dismissModal();
+
     }, (error) => {
       console.log(error);
     });

@@ -51,12 +51,12 @@ export class AlertsComponent implements OnInit {
       message: message,
       buttons: [
         {
-          text: 'Cancelar',
+          text: 'Nel',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => resolveFunction(false)
         }, {
-          text: 'Si',
+          text: 'Vos dale',
           handler:  () => resolveFunction(true)
         }
       ]

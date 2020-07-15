@@ -35,6 +35,7 @@ export class FeedPage implements OnInit {
 
   ngOnInit() {
     this.getServices();
+    this.getCurrentUser();
   }
 
   getServices() {
@@ -55,7 +56,7 @@ export class FeedPage implements OnInit {
         this.userUid = auth.uid;
         this.authSvc.isUserAdmin(this.userUid).subscribe(userRole => {
           this.isAdmin = Object.assign({}, userRole.roles);
-          this.isAdmin = this.isAdmin.hasOwnProperty('admin');
+          this.isAdmin = this.isAdmin.hasOwnProperty('professional');
         }
         )
       }
@@ -88,7 +89,8 @@ export class FeedPage implements OnInit {
 
   async addService() {
     const modal = await this.modalController.create({
-      component: ModalAddServiceComponent
+      component: ModalAddServiceComponent,
+      componentProps: { userUid: this.userUid }
     });
     modal.onDidDismiss().then((dataReturned) => {
       this.getServices();
@@ -100,7 +102,7 @@ export class FeedPage implements OnInit {
   public async removeService(docId: any) {
 
 let header = 'Suave chatel!'
-let message = 'Estas seguro que deseas borrar este servicio prix?'
+let message = 'Seguro querés borrar este servicio prix?'
 
     const confirm = await this.alrt.presentAlertConfirm(header, message);
     if (confirm) {

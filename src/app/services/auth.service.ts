@@ -21,13 +21,18 @@ export class AuthService {
 
   public dataUser: UserInterface;
 
-async login(UserInterface) {
+async login(UserInterface) {  
     try {
       return await this.angularFireAuth.signInWithEmailAndPassword(
         UserInterface.email,
         UserInterface.password);
     } catch (error) {
       console.log('Error on login', error);
+      if(error.code = "auth/invalid-email")
+      {
+        return 1;
+      }
+      
     }
   } 
 

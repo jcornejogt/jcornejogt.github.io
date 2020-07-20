@@ -49,7 +49,6 @@ export class AuthService {
         lastName: personData.lastName,
         professions: personData.professions
       }
-debugger;
       this.fbs.createPerson(person, credential);
       this.router.navigateByUrl('/home');
     });

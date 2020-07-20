@@ -1,8 +1,16 @@
+import { PersonInterface, ProfessionInterface } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserInterface } from 'src/app/models/user';
+import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
+import { IonicSelectableComponent } from 'ionic-selectable';
+
+class Port {
+  public id: number;
+  public name: string;
+}
 
 @Component({
   selector: 'app-signup-professional',
@@ -12,24 +20,64 @@ import { UserInterface } from 'src/app/models/user';
 
 export class SignupProfessionalPage implements OnInit {
 
+  selected: [];
+  professionsf = [];
+
   //declaramos el formulario de registro
   public SignupProForm: FormGroup;
   public dataUser: UserInterface;
+  public personData: PersonInterface;
+  public profession: ProfessionInterface;
+  public professionsSelected: ProfessionInterface[];
+
 
   constructor(
+    private firebaseService: FirebaseServiceService,
     private authSvc: AuthService,
     private router: Router,
     public formBuilder: FormBuilder) {
+      
     //construimos el formulario
     this.SignupProForm = formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      userName: ['', Validators.required],
+      userLastname: ['', Validators.required],
+      userProfession: [Selection, Validators.required]
     });
+
   }
 
   ngOnInit() { }
 
+  get() {
+    this.professionsf = [];
+
+    this.firebaseService.getProfessions().subscribe((profession) => {
+      profession.forEach((res: any) => {
+
+        let prof = {
+          id: res.payload.doc.data()["id"],
+          professionName: res.payload.doc.data()['professionName'],
+          professionSysName: res.payload.doc.data()['professionSysName']
+        }
+        this.professionsf.push({
+          id: res.payload.doc.data()["id"],
+          professionName: res.payload.doc.data()['professionName'],
+          professionSysName: res.payload.doc.data()['professionSysName']
+        });
+      })
+    });
+  }
+
   async signup(form) {
+
+    this.personData = {
+      firstNname: form.userName,
+      lastName: form.userLastname,
+      professions: this.professionsSelected
+    }
+  
     this.dataUser = {
       email: form.email,
       password: form.password,
@@ -37,15 +85,25 @@ export class SignupProfessionalPage implements OnInit {
         professional: true
       }
     }
+
     try {
-      this.authSvc.signup(this.dataUser);
+      this.authSvc.signup(this.dataUser, this.personData);
       console.log('Creado exitosamente!');
       this.router.navigate(['/home']);
     } catch (error) {
       console.log('Error de registro');
     }
   }
+
+  portChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+   this.professionsSelected = event.value
+  }
+
   navigateToTypeOfLogin() {
     this.router.navigate(['type-of-login']);
   }
+  
 }

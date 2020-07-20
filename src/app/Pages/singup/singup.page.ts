@@ -1,10 +1,16 @@
-import { User } from './../../shared/user.class';
-import { auth } from 'firebase';
-import { Component, OnInit } from '@angular/core';
+import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
+import { IonicSelectableComponent } from 'ionic-selectable';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { UserInterface } from 'src/app/models/user';
+
+class Port {
+  public id: number;
+  public name: string;
+}
 
 @Component({
   selector: 'app-singup',
@@ -19,7 +25,9 @@ export class SingupPage implements OnInit {
     public formBuilder: FormBuilder, public toastController: ToastController) {
     this.SignupForm = formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      userName: ['', Validators.required],
+      userLastname: ['', Validators.required],
     });
   }
 
@@ -35,8 +43,13 @@ export class SingupPage implements OnInit {
       }
     }
 
+    let personData = {
+    firstName: form.userName,
+    lastName: form.userLastname,
+    }
+
     try {
-      await this.authSvc.signup(data);
+      await this.authSvc.signup(data, personData);
       console.log('Creado exitosamente!');
       this.openToast("Bienvenido");
     }

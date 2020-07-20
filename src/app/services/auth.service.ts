@@ -1,3 +1,5 @@
+import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
+import { User } from './../shared/user.class';
 
 import { AuthConstants } from './../config/auth-constants';
 import { StorageService } from './storage.service';
@@ -7,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserInterface } from '../models/user'
 import { map } from "rxjs/operators"
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Injectable({
   providedIn: 'root'
@@ -17,37 +20,54 @@ export class AuthService {
     private storageServices: StorageService,
     private router: Router,
     public angularFireAuth: AngularFireAuth,
+    public fbs: FirebaseServiceService
   ) { }
 
   public dataUser: UserInterface;
 
-async login(UserInterface) {  
+  async login(UserInterface) {
     try {
       return await this.angularFireAuth.signInWithEmailAndPassword(
         UserInterface.email,
         UserInterface.password);
     } catch (error) {
       console.log('Error on login', error);
-      if(error.code = "auth/invalid-email")
-      {
+      if (error.code = "auth/invalid-email") {
         return 1;
       }
-      
     }
-  } 
-
-  async signup(user) {
-      return await this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password).then((credential) => {
-        this.updateUserData(credential, user.roles);
-        this.router.navigateByUrl('/home')
-      });
   }
 
-  async logout() {
-    await this.angularFireAuth.signOut();
-    await this.storageServices.removeItem(AuthConstants.AUTH);
-    this.router.navigate(['/']);
+  async signup(user, personData) {
+
+    await this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password).then((credential) => {
+
+      this.updateUserData(credential, user.roles);
+
+      let person = {
+        firstName: personData.firstNname,
+        lastName: personData.lastName,
+        professions: personData.professions
+      }
+debugger;
+      this.fbs.createPerson(person, credential);
+      this.router.navigateByUrl('/home');
+    });
   }
+
+
+  portChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    console.log(event.value)
+  }
+
+    async logout() {
+      await this.angularFireAuth.signOut();
+      await this.storageServices.removeItem(AuthConstants.AUTH);
+      this.router.navigate(['/']);
+    }
 
   private updateUserData(user, roleData) {
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.user.uid}`);

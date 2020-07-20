@@ -21,15 +21,25 @@
 
   <form (ngSubmit)="signup(SignupForm.value)" [formGroup]="SignupForm">
     <ion-item>
-      <ion-label color="primary" position="stacked">email</ion-label>
+      <ion-label color="primary" position="stacked">Correo Electronico</ion-label>
       <ion-input type="text" formControlName="email"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" position="stacked">Password</ion-label>
+      <ion-label color="primary" position="stacked">Contraseña</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label color="primary" position="stacked">Primer Nombre</ion-label>
+      <ion-input type="text" formControlName="userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">Primer Apellido</ion-label>
+      <ion-input type="text" formControlName="userLastname"></ion-input>
+    </ion-item>
+    
     <ion-item>
       Ya tienes una cuenta?&nbsp;&nbsp;
       <a href='/login'>Inicia sesion</a>

@@ -8,6 +8,7 @@ import { SingupPageRoutingModule } from './singup-routing.module';
 
 import { SingupPage } from './singup.page';
 import { ComponentsModule } from 'src/app/Components/components.module';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ComponentsModule } from 'src/app/Components/components.module';
     ReactiveFormsModule,
     IonicModule,
     ComponentsModule,
-    SingupPageRoutingModule
+    SingupPageRoutingModule,
+    IonicSelectableModule
   ],
   declarations: [SingupPage]
 })

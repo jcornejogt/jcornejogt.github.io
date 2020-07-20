@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SignupProfessionalPageRoutingModule } from './signup-professional-routing.module';
 
 import { SignupProfessionalPage } from './signup-professional.page';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { SignupProfessionalPage } from './signup-professional.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    SignupProfessionalPageRoutingModule
+    SignupProfessionalPageRoutingModule,
+    IonicSelectableModule
   ],
   declarations: [SignupProfessionalPage]
 })

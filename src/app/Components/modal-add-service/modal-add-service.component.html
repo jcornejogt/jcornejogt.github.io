@@ -11,7 +11,7 @@
 
 <ion-content>
   
-  <form (ngSubmit)="addService(serviceForm.value)" [formGroup]="serviceForm">
+  <form style="height: 90%;" (ngSubmit)="addService(serviceForm.value)" [formGroup]="serviceForm">
 
     <ion-list>
       
@@ -32,10 +32,28 @@
         <ion-input type="text" formControlName="idProfesional"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button type="submit" [disabled]="!serviceForm.valid">
-      <ion-icon name="save-outline"></ion-icon>
-      &nbsp; Crear nuevo servicio
-    </ion-button>
-  </form>
 
+    <ion-item>
+    </ion-item>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Mapa</ion-card-subtitle>
+      <ion-button (click)="saveCurrentPosition()" style="width: 98%;">
+        <ion-text>Deseas guardar tu ubicacion actual?
+          <ion-icon name="download-outline"></ion-icon></ion-text>
+      </ion-button>
+    </ion-card-header>
+  
+    <ion-card-content id="map">
+      
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button style="width: 100%;" type="submit" [disabled]="!serviceForm.valid">
+    <ion-icon name="save-outline"></ion-icon>
+    &nbsp; Crear nuevo servicio
+  </ion-button>
+
+</form>
 </ion-content>

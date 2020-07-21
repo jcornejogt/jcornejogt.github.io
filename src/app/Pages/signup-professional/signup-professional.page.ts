@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserInterface } from 'src/app/models/user';
 import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { ToastController } from '@ionic/angular';
 
 class Port {
   public id: number;
@@ -35,7 +36,8 @@ export class SignupProfessionalPage implements OnInit {
     private firebaseService: FirebaseServiceService,
     private authSvc: AuthService,
     private router: Router,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public toastController: ToastController) {
       
     //construimos el formulario
     this.SignupProForm = formBuilder.group({
@@ -70,10 +72,10 @@ export class SignupProfessionalPage implements OnInit {
     });
   }
 
-  async signup(form) {
-
+  signup(form) {
+debugger;
     this.personData = {
-      firstNname: form.userName,
+      firstName: form.userName,
       lastName: form.userLastname,
       professions: this.professionsSelected
     }
@@ -89,9 +91,11 @@ export class SignupProfessionalPage implements OnInit {
     try {
       this.authSvc.signup(this.dataUser, this.personData);
       console.log('Creado exitosamente!');
-      this.router.navigate(['/home']);
+      this.openToast("Bienvenido");
+      this.router.navigate(['/home/feed']);
     } catch (error) {
-      console.log('Error de registro');
+      console.log('Error de registro: '+ error);
+      this.openToast(error.message);
     }
   }
 
@@ -100,6 +104,15 @@ export class SignupProfessionalPage implements OnInit {
     value: any
   }) {
    this.professionsSelected = event.value
+  }
+
+  async openToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      animated: true,
+    });
+    await (toast.present());
   }
 
   navigateToTypeOfLogin() {

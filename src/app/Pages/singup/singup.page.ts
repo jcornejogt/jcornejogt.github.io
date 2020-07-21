@@ -49,12 +49,13 @@ export class SingupPage implements OnInit {
     }
 
     try {
-      await this.authSvc.signup(data, personData);
+      this.authSvc.signup(data, personData);
       console.log('Creado exitosamente!');
       this.openToast("Bienvenido");
+      this.router.navigate(['/home/feed']);
     }
     catch (error) {
-      console.log('Error de registro' + error);
+      console.log('Error de registro: ' +  error);
       this.openToast(error.message);
     }
   }

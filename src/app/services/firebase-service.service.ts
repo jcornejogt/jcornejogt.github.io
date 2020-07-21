@@ -1,7 +1,7 @@
-import { ProfessionInterface } from './../models/user';
+import { ProfessionInterface, PersonInterface } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 
 export class FirebaseServiceService {
 
-constructor
-  (
-    public firestore: AngularFirestore,
-  ){}
+  constructor
+    (
+      public firestore: AngularFirestore,
+  ) { }
 
-  public createService(data: {nombreServicio: string, idProfesional: string, descripcionServicio: string}) {
+  public createService(data: { nombreServicio: string, idProfesional: string, descripcionServicio: string }) {
     return this.firestore.collection('servicios').add(data);
   }
 
@@ -24,7 +24,7 @@ constructor
 
   public getService(documentId: string) {
     return this.
-    firestore.collection('servicios').doc(documentId).snapshotChanges();
+      firestore.collection('servicios').doc(documentId).snapshotChanges();
   }
 
   public deleteService(documentId: string) {
@@ -35,18 +35,31 @@ constructor
     return this.firestore.collection('servicios').doc(documentId).set(data);
   }
 
-  public createPerson(data: {firstName: string, lastName: string, professions: ProfessionInterface[]}, user) {
-    
-    let personData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      userUid: user.user.uid,
-      professions: data.professions
+  public createPerson(Person: PersonInterface, User) {
+
+    debugger;
+    let personData = null;
+
+
+
+    if (Person.professions != null) {
+      personData = {
+        firstName: Person.firstName,
+        lastName: Person.lastName,
+        userUid: User.user.uid,
+        professions: Person.professions
+      }
+    } else {
+      personData = {
+        firstName: Person.firstName,
+        lastName: Person.lastName,
+        userUid: User.user.uid
+      }
     }
 
     return this.firestore.collection('persons').add(personData);
   }
-  
+
   public updatePerson(documentId: string, data: any) {
     return this.firestore.collection('persons').doc(documentId).set(data);
   }

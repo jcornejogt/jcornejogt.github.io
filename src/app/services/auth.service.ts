@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { PersonInterface, ProfessionInterface } from './../models/user';
 import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 import { User } from './../shared/user.class';
 
@@ -10,6 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { UserInterface } from '../models/user'
 import { map } from "rxjs/operators"
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { empty } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +27,7 @@ export class AuthService {
   ) { }
 
   public dataUser: UserInterface;
+  public personData: PersonInterface;
 
   async login(UserInterface) {
     try {
@@ -38,19 +42,12 @@ export class AuthService {
     }
   }
 
-  async signup(user, personData) {
+  async signup(user, personData: PersonInterface) {
 
     await this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password).then((credential) => {
-
       this.updateUserData(credential, user.roles);
-
-      let person = {
-        firstName: personData.firstNname,
-        lastName: personData.lastName,
-        professions: personData.professions
-      }
-      this.fbs.createPerson(person, credential);
-      this.router.navigateByUrl('/home');
+      this.fbs.createPerson(personData, credential);
+      this.router.navigateByUrl('/home/feed');
     });
   }
 
@@ -62,15 +59,14 @@ export class AuthService {
     console.log(event.value)
   }
 
-    async logout() {
-      await this.angularFireAuth.signOut();
-      await this.storageServices.removeItem(AuthConstants.AUTH);
-      this.router.navigate(['/']);
-    }
+  async logout() {
+    await this.angularFireAuth.signOut();
+    await this.storageServices.removeItem(AuthConstants.AUTH);
+    this.router.navigate(['/']);
+  }
 
   private updateUserData(user, roleData) {
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.user.uid}`);
-
     this.dataUser = {
       id: user.user.uid,
       email: user.user.email,

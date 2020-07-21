@@ -13,9 +13,9 @@ export interface UserInterface {
 }
 
 export interface PersonInterface {
-    firstNname?: string;
+    firstName?: string;
     lastName?: string;
-    professions?: ProfessionInterface[]
+    professions?: ProfessionInterface[];
     userUid?: string;
 }
 

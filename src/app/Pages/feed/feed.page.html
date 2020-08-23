@@ -27,13 +27,13 @@
     </ion-segment-button>
   </ion-segment>
 
+<ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
 
-  <ion-slides style="height: 90%;" #slides pager="false" [options]="slideOpts" (ionSlideDidChange)="slidesChanged(slides)"
+  <ion-slides style="height: 90%;" #slides pager="false" [options]="slideOpts" (ionSlideDidChange)="slidesChanged(slides)" class="swiper-no-swiping"
     (ionSlidesDidLoad)="slidesChanged(slides)">
     <ion-slide style="height: 100%;">
 
       <ion-list style="height: 100%;">
-        <ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
         <ion-item *ngFor="let item of services">
 
           <ion-thumbnail slot="start">
@@ -91,7 +91,7 @@
 
   </ion-slides>
 
-  <ion-fab *ngIf="userUid && isAdmin == true else" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="isAdmin == true && segment == 0" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addService()">
       <ion-icon name="add-circle"></ion-icon>
     </ion-fab-button>

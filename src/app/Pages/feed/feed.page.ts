@@ -26,7 +26,7 @@ export class FeedPage implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400
+    speed: 400,
   };
 
   e: MarkerInterface[];
@@ -44,6 +44,7 @@ export class FeedPage implements OnInit {
 
   public services = [];
   public isAdmin: any = null;
+  public SegmentIndex: any = null;
   public userUid: string = null;
   public selectedSlides: any;
   public segment;
@@ -176,12 +177,10 @@ export class FeedPage implements OnInit {
 
   async segmentChanged(ev: any) {
     await this.selectedSlides.slideTo(this.segment)
-  }
+  } 
 
   async slidesChanged(slides: IonSlides) {
-
     this.selectedSlides = slides;
-
     slides.getActiveIndex().then(selectedIndex => {
       this.segment = selectedIndex
     })

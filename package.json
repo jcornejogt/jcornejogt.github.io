@@ -32,6 +32,8 @@
     "firebase": "^7.16.0",
     "firebase-admin": "^8.13.0",
     "ionic-selectable": "^4.7.1",
+    "leaflet": "^1.6.0",
+    "mapbox-gl": "^1.11.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

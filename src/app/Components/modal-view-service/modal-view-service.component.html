@@ -11,22 +11,44 @@
 
 <ion-content>
 
-  <form [formGroup]="viewServiceForm">
+  <form style="height: 90%;" [formGroup]="viewServiceForm">
 
     <ion-list>
       <ion-item>
         <ion-input type="hidden" formControlName="id"></ion-input>
 
         <ion-label color="primary" position="stacked">Nombre del Servicio</ion-label>
-        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="nombreServicio" disabled="true"></ion-input>
+        <ion-input type="text" formControlName="serviceName" disabled="true"></ion-input>
 
         <ion-label color="primary" position="stacked">Descripcion del servicio</ion-label>
-        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="descripcionServicio" disabled="true"></ion-input>
+        <ion-input type="text" formControlName="serviceDescription" disabled="true"></ion-input>
 
         <ion-label color="primary" position="stacked">Profesional</ion-label>
         <ion-input type="text" formControlName="idProfesional" disabled="true"></ion-input>
-      
+
+        <ion-label color="primary" position="stacked">Direccion</ion-label>
+        <ion-input type="text" formControlName="direccionServicio" disabled="true"></ion-input>
+
+        <ion-label color="primary" position="stacked">Marker</ion-label>
+        <ion-input type="text" formControlName="markerId" disabled="true"></ion-input>
+
       </ion-item>
     </ion-list>
+
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mapa</ion-card-title>
+        <ion-card-subtitle>
+          Asegurate de estar en el punto exacto donde ofreceras este servicio, esto ayudara a los clientes a localizar
+          tu servicio mejor en el mapa!
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content id="mapid">
+      </ion-card-content>
+    </ion-card>
+
+
   </form>
 </ion-content>

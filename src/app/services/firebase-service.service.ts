@@ -1,4 +1,4 @@
-import { ProfessionInterface, PersonInterface } from './../models/user';
+import { ProfessionInterface, PersonInterface, ServiceInterface } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, empty } from 'rxjs';
@@ -14,8 +14,8 @@ export class FirebaseServiceService {
       public firestore: AngularFirestore,
   ) { }
 
-  public createService(data: { nombreServicio: string, idProfesional: string, descripcionServicio: string }) {
-    return this.firestore.collection('servicios').add(data);
+  public createService(serviceData: ServiceInterface) {
+    return this.firestore.collection('servicios').add(serviceData);
   }
 
   public getServices() {
@@ -23,8 +23,7 @@ export class FirebaseServiceService {
   }
 
   public getService(documentId: string) {
-    return this.
-      firestore.collection('servicios').doc(documentId).snapshotChanges();
+    return this.firestore.collection('servicios').doc(documentId).snapshotChanges();
   }
 
   public deleteService(documentId: string) {
@@ -39,8 +38,6 @@ export class FirebaseServiceService {
 
     debugger;
     let personData = null;
-
-
 
     if (Person.professions != null) {
       personData = {

@@ -1,3 +1,33 @@
 .center {
-    text-align: center;
-  }
+  text-align: center;
+}
+
+
+ion-card {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  height: 70%;
+  margin: 0 !important;
+}
+
+#mapHome {
+  position: cover;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}

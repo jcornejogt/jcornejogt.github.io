@@ -16,45 +16,80 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
-  <ion-grid>
-    <ion-list>
-      <ion-item *ngFor="let item of services">
 
-        <ion-thumbnail slot="start">
-          <img src="../../../assets/images/nicaBandera.png">
-        </ion-thumbnail>
+  <!-- Segment with default selection -->
+  <ion-segment style="height: 10%; margin-bottom: 0px;" [(ngModel)]="segment" (ionChange)="segmentChanged($event)" value="0">
+    <ion-segment-button value="0">
+      <ion-label>VER EN LISTA</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>VER EN MAPA</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-        <ion-label class="ion-text-wrap">
-          <h2>{{item.data.nombreServicio}}</h2>
-          <p>{{item.data.idProfesional}}</p>
-          <p>{{item.data.descripcionServicio}}</p>
-        </ion-label>
 
-        <ion-button *ngIf="item.data.userUid == userUid && isAdmin == true; else noProfessional" (click)="editService(item.id)">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
+  <ion-slides style="height: 90%;" #slides pager="false" [options]="slideOpts" (ionSlideDidChange)="slidesChanged(slides)"
+    (ionSlidesDidLoad)="slidesChanged(slides)">
+    <ion-slide style="height: 100%;">
 
-        <ng-template #noProfessional>
-          <ion-button (click)="getViewServices(item.id)">
-            <ion-icon name="eye-outline"></ion-icon>
+      <ion-list style="height: 100%;">
+        <ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
+        <ion-item *ngFor="let item of services">
+
+          <ion-thumbnail slot="start">
+            <img src="../../../assets/images/nicaBandera.png">
+          </ion-thumbnail>
+
+          <ion-label class="ion-text-wrap">
+            <h2>{{item.data.serviceName}}</h2>
+            <p>{{item.data.idProfesional}}</p>
+            <p>{{item.data.serviceDescription}}</p>
+          </ion-label>
+
+          <ion-button *ngIf="item.data.userUid == userUid && isAdmin == true; else noProfessional"
+            (click)="editService(item.id)">
+            <ion-icon name="create-outline"></ion-icon>
           </ion-button>
-        </ng-template>
 
-        <ion-button *ngIf="item.data.userUid == userUid && isAdmin == true; else noProfessionalRemove" (click)="removeService(item.id)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
+          <ng-template #noProfessional>
+            <ion-button (click)="getViewServices(item.id, item.data.userUid)">
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+          </ng-template>
 
-        <ng-template #noProfessionalRemove>
-          <ion-button  hidden="true" disabled="true">
+          <ion-button *ngIf="item.data.userUid == userUid && isAdmin == true; else noProfessionalRemove"
+            (click)="removeService(item.id)">
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
-        </ng-template>
 
-      </ion-item>
-      
-    </ion-list>
-  </ion-grid>
+          <ng-template #noProfessionalRemove>
+            <ion-button hidden="true" disabled="true">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ng-template>
+
+        </ion-item>
+      </ion-list>
+
+    </ion-slide>
+
+    <ion-slide style="height: 100%;">
+
+      <ion-card style="height: 100%;">
+        <ion-card-header>
+          <ion-card-title>Mapa</ion-card-title>
+          <ion-card-subtitle>
+            Vista de los servicios consultados mas cercanos a tu posicion actual.
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content id="mapHome">
+        </ion-card-content>
+      </ion-card>
+
+    </ion-slide>
+
+  </ion-slides>
 
   <ion-fab *ngIf="userUid && isAdmin == true else" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addService()">

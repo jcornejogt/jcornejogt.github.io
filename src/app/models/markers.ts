@@ -6,4 +6,5 @@ export interface MarkerInterface {
     title: string;
     address: string;
     userUid: string;
+    serviceId: string;
   }

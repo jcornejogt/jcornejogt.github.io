@@ -11,31 +11,47 @@
 
 <ion-content>
 
-  <form (ngSubmit)="editService(editServiceForm.value)" [formGroup]="editServiceForm">
+  <form style="height: 90%;" (ngSubmit)="editService(editServiceForm.value)" [formGroup]="editServiceForm">
 
     <ion-list>
 
       <ion-item>
 
         <ion-input type="hidden" formControlName="id"></ion-input>
+        <ion-input type="hidden" formControlName="userUid"></ion-input>
 
         <ion-label color="primary" position="stacked">Nombre del Servicio</ion-label>
-        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="nombreServicio"></ion-input>
+        <ion-input type="text" formControlName="nombreServicio"></ion-input>
 
         <ion-label color="primary" position="stacked">Descripcion del servicio</ion-label>
-        <ion-input type="text" placehorder="Ej: Jardineria" formControlName="descripcionServicio"></ion-input>
+        <ion-input type="text" formControlName="descripcionServicio"></ion-input>
 
         <ion-label color="primary" position="stacked">Profesional</ion-label>
-        <ion-input type="text" formControlName="idProfesional"></ion-input>
+        <ion-input type="text" [disabled]="true" formControlName="idProfesional"></ion-input>
 
-        <ion-button type="submit" [disabled]="!editServiceForm.valid">
-          <ion-icon name="save-outline"></ion-icon>
-          &nbsp; Guardar
-        </ion-button>
+        <ion-label color="primary" position="stacked">Direccion del servicio:</ion-label>
+        <ion-input type="text" formControlName="direccionServicio"></ion-input>
       </ion-item>
 
-
     </ion-list>
-  </form>
 
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mapa</ion-card-title>
+        <ion-card-subtitle>
+          Asegurate de estar en el punto exacto donde ofreceras este servicio, esto ayudara a los clientes a localizar
+          tu servicio mejor en el mapa!
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content id="mapid">
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button style="width: 100%;" type="submit" [disabled]="!editServiceForm.valid">
+      <ion-icon name="save-outline"></ion-icon>
+      &nbsp; Guardar servicio
+    </ion-button>
+
+  </form>
 </ion-content>

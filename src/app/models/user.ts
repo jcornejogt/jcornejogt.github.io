@@ -1,4 +1,3 @@
-
 export interface Roles {
     professional?: boolean;
     client?: boolean;
@@ -19,8 +18,16 @@ export interface PersonInterface {
     userUid?: string;
 }
 
-export interface ProfessionInterface{
+export interface ProfessionInterface {
     professionName?: string;
     professionSysName?: string;
     id?: string;
+}
+
+export interface ServiceInterface {
+    serviceName?: string;
+    serviceDescription?: string;
+    idProfesional?: string;
+    userUid?: string;
+    markerId?: string;
 }

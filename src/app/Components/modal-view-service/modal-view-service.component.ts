@@ -116,8 +116,8 @@ export class ModalViewServiceComponent implements OnInit {
                   'properties': {
                     'description':
                       '<strong>' + marker.title + '</strong>' +
-                      '<p><a href="http://www.mtpleasantdc.com/makeitmtpleasant"' +
-                      'target="_blank" title="Opens in a new window">Url de prueba</a>' +
+                      '<p><a href="http://jcornejogt.github.io/home"' +
+                      'target="_blank" title="Opens in a new window">Url de prueba</a><br>' +
                       marker.address + '</p>',
                     'icon': 'rocket'
                   },

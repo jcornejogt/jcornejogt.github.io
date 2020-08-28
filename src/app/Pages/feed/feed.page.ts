@@ -105,7 +105,7 @@ export class FeedPage implements OnInit {
             'properties': {
               'description':
                 '<strong>' + markerItem.payload.data()['title'] + '</strong>' +
-                '<p><a href="http://www.mtpleasantdc.com/makeitmtpleasant"' +
+                '<p><a href="http:jcornejogt.github.io/home"' +
                 'target="_blank" title="Opens in a new window">Url de prueba</a><br>' +
                 markerItem.payload.data()['address'] + '</p>',
               'icon': 'rocket'

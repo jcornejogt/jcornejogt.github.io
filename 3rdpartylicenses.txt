@@ -295,6 +295,9 @@ Apache-2.0
 @ionic-native/core
 MIT
 
+@ionic-native/paypal
+MIT
+
 @ionic-native/splash-screen
 MIT
 

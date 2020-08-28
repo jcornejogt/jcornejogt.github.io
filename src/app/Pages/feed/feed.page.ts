@@ -16,7 +16,6 @@ import { MarkerInterface } from 'src/app/models/markers';
 import { Geolocation } from '@capacitor/core';
 import { runInThisContext } from 'vm';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
-import { ModalPurchaseComponent } from 'src/app/Components/modal-purchase/modal-purchase.component';
 
 
 @Component({
@@ -299,15 +298,6 @@ export class FeedPage implements OnInit {
     });
     let element = document.createElement('div')
     element.className = 'marker'
-  }
-
-  async openPurchaseModal() {
-    const modal = await this.modalController.create({
-      component: ModalPurchaseComponent,
-      componentProps: { paymentAmount: this.price }
-    });
-    
-    modal.present();
   }
 
 

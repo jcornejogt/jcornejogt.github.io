@@ -1,21 +1,17 @@
-import { Component } from '@angular/core';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-purchase-service',
-  templateUrl: './modal-purchase-service.component.html',
-  styleUrls: ['./modal-purchase-service.component.scss'],
+  selector: 'app-modal-purchase',
+  templateUrl: './modal-purchase.component.html',
+  styleUrls: ['./modal-purchase.component.scss'],
 })
-
-export class ModalPurchaseServiceComponent {
-
-  paymentAmount = null;
-  currency: string = 'NIO';
-  currencyIcon: string = 'C$';
-
-
-  constructor() {
-
+export class ModalPurchaseComponent {
+ 
+  public paymentAmount = 100;
+  public currency: string = 'NIO';
+  public currencyIcon: string = 'C$';
+  
+  constructor() { 
     let _this = this;
     setTimeout(() => {
       // Render the PayPal button into #paypal-button-container
@@ -46,5 +42,5 @@ export class ModalPurchaseServiceComponent {
       }).render('#paypal-button-container');
     }, 500)
   }
-  
+     
 }

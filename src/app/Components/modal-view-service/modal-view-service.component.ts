@@ -7,7 +7,7 @@ import { Geolocation } from '@capacitor/core';
 import { MarkerInterface } from 'src/app/models/markers';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { title } from 'process';
-import { ModalPurchaseServiceComponent } from 'src/app/modal-purchase-service/modal-purchase-service.component';
+import { ModalPurchaseComponent } from 'src/app/Components/modal-purchase/modal-purchase.component';
 
 @Component({
   selector: 'app-modal-view-service',
@@ -16,7 +16,7 @@ import { ModalPurchaseServiceComponent } from 'src/app/modal-purchase-service/mo
 })
 export class ModalViewServiceComponent implements OnInit {
 
-  price = '100'
+  public price = '100'
   public documentid: any;
   public viewServiceForm: FormGroup;
   lat: number;
@@ -171,9 +171,9 @@ export class ModalViewServiceComponent implements OnInit {
     });
   }
 
-  async openPurchaseModal(docId: any) {
+  async openPurchaseModal() {
     const modal = await this.ModalController.create({
-      component: ModalPurchaseServiceComponent,
+      component: ModalPurchaseComponent,
       componentProps: { paymentAmount: this.price }
     });
     

@@ -33,21 +33,36 @@
         <ion-input type="text" formControlName="markerId" disabled="true"></ion-input>
 
       </ion-item>
+    
+      
+      <ion-item class="mapItem">
+        <ion-card class="mapcard">
+          <ion-card-header>
+            <ion-card-title>Ubicacion de este servicio</ion-card-title>
+          </ion-card-header>
+    
+          <ion-card-content id="mapid">
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+
+
+      <ion-item>
+       <!--  <ion-button *ngIf="item.data.userUid == userUid && isAdmin == true; else noProfessional"
+        (click)="editService(item.id)">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button> -->
+      <ion-button (click)="openPurchaseModal()">
+        Contratar &nbsp;&nbsp;
+        <ion-icon name="wallet"></ion-icon>
+      </ion-button>
+
+      </ion-item>
+
     </ion-list>
 
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Mapa</ion-card-title>
-        <ion-card-subtitle>
-          Asegurate de estar en el punto exacto donde ofreceras este servicio, esto ayudara a los clientes a localizar
-          tu servicio mejor en el mapa!
-        </ion-card-subtitle>
-      </ion-card-header>
-
-      <ion-card-content id="mapid">
-      </ion-card-content>
-    </ion-card>
+    
 
 
   </form>

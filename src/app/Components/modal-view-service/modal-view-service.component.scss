@@ -11,13 +11,15 @@ ion-content {
     }
 }
 
-ion-card {
+
+ion-item ion-card {
     display: flex;
     flex-direction: column;
     width: 100% !important;
-    height: 70%;
+    height: 300px;
     margin: 0 !important;
 }
+
 
 #mapid {
     position: cover;

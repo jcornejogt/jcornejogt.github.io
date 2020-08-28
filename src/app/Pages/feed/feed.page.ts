@@ -1,3 +1,4 @@
+import { ModalPurchaseServiceComponent } from './../../modal-purchase-service/modal-purchase-service.component';
 import { async } from '@angular/core/testing';
 import { element } from 'protractor';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -5,7 +6,7 @@ import { ModalViewServiceComponent } from './../../Components/modal-view-service
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from './../../services/auth.service';
 import { ModalEditServiceComponent } from './../../Components/modal-edit-service/modal-edit-service.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, AlertController, IonSlides } from '@ionic/angular';
 import { FirebaseServiceService } from '../../services/firebase-service.service';
@@ -15,6 +16,7 @@ import { AlertsComponent } from './../../Components/alerts/alerts.component'
 import { MarkerInterface } from 'src/app/models/markers';
 import { Geolocation } from '@capacitor/core';
 import { runInThisContext } from 'vm';
+import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class FeedPage implements OnInit {
   e: MarkerInterface[];
 
   constructor(
+    private payPal: PayPal,
     private alertCntrl: AlertController,
     private router: Router,
     private firebaseServiceService: FirebaseServiceService,

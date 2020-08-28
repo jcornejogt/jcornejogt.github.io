@@ -18,7 +18,8 @@
 <ion-content>
 
   <!-- Segment with default selection -->
-  <ion-segment style="height: 10%; margin-bottom: 0px;" [(ngModel)]="segment" (ionChange)="segmentChanged($event)" value="0">
+  <ion-segment style="height: 10%; margin-bottom: 0px;" [(ngModel)]="segment" (ionChange)="segmentChanged($event)"
+    value="0">
     <ion-segment-button value="0">
       <ion-label>VER EN LISTA</ion-label>
     </ion-segment-button>
@@ -27,10 +28,10 @@
     </ion-segment-button>
   </ion-segment>
 
-<ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="searchServices($event)"></ion-searchbar>
 
-  <ion-slides style="height: 90%;" #slides pager="false" [options]="slideOpts" (ionSlideDidChange)="slidesChanged(slides)" class="swiper-no-swiping"
-    (ionSlidesDidLoad)="slidesChanged(slides)">
+  <ion-slides style="height: 90%;" #slides pager="false" [options]="slideOpts"
+    (ionSlideDidChange)="slidesChanged(slides)" class="swiper-no-swiping" (ionSlidesDidLoad)="slidesChanged(slides)">
     <ion-slide style="height: 100%;">
 
       <ion-list style="height: 100%;">
@@ -70,6 +71,8 @@
 
         </ion-item>
       </ion-list>
+
+
 
     </ion-slide>
 

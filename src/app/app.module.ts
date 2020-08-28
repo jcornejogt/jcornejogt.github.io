@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { PayPal } from '@ionic-native/paypal/ngx';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { environment } from '../environments/environment';
     ComponentsModule
   ],
   providers: [
+    PayPal,
     StatusBar,
     SplashScreen,
     HttpClientModule,
